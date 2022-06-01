@@ -1,4 +1,4 @@
-﻿@model GaziProject.Models.Bolum
+﻿@model GaziProject.Models.Department
 @{
     ViewData["Title"] = "Home Page";
     int sayac = 0;
@@ -9,16 +9,19 @@
 
 @using (Html.BeginForm("Index", "Bolum", FormMethod.Post))
 {
-    @Html.TextBoxFor(m => m.BolumKodu)
-    @Html.TextBoxFor(m => m.BolumAdi)
-    @Html.TextBoxFor(m => m.Telefon)
+    @Html.LabelFor(m=>m.DepartmentCode,"Bölüm Kodu")
+    @Html.TextBoxFor(m => m.DepartmentCode)
+    @Html.LabelFor(m=>m.DepartmentName,"Bölüm İsmi")
+    @Html.TextBoxFor(m => m.DepartmentName)
+    @Html.LabelFor(m=>m.Phone,"Telefon Numarası")
+    @Html.TextBoxFor(m => m.Phone)
     <input type="submit" value="Submit Form" />
 }
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Sıra</th>
             <th scope="col">Bölüm Kodu</th>
             <th scope="col">Bölüm Adı</th>
             <th scope="col">Telefon</th>
@@ -29,9 +32,9 @@
         {
             <tr>
                 <th scope="row">@sayac</th>
-                <td>@bolum.BolumKodu</td>
-                <td>@bolum.BolumAdi</td>
-                <td>@bolum.Telefon</td>
+                <td>@bolum.DepartmentCode</td>
+                <td>@bolum.DepartmentName</td>
+                <td>@bolum.Phone</td>
                 <td><div style="display:flex;">
                 <button class= "view" data-target="/bolum/detail/@bolum.Id">Düzenle</button>
                 <button class="deleteView" data-target="/bolum/delete/@bolum.Id">Sil</button>                
@@ -56,10 +59,7 @@
       <div class="modal-body">
         ...
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-        <button type="button" onclick="updateModel()" class="btn btn-primary">Güncelle</button>
-      </div>
+      
     </div>
   </div>
 </div>

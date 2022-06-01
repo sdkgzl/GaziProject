@@ -6,8 +6,8 @@ namespace GaziProject.Controllers
 {
     public class DersController : Controller
     {
-        private IDersService _service;
-        public DersController(IDersService service)
+        private IDersManager _service;
+        public DersController(IDersManager service)
         {
             _service = service;
         }
@@ -18,11 +18,11 @@ namespace GaziProject.Controllers
         }
         
         [HttpPost]
-        public IActionResult Index(Ders model)
+        public IActionResult Index(Lecture model)
         {
-            Ders bl = new();
+            Lecture bl = new();
             bl = _service.Create(model);
-            if (!String.IsNullOrEmpty(bl.DersKodu))
+            if (!String.IsNullOrEmpty(bl.LectureCode))
             {
                 //return View("Index", Ok());
                 return RedirectToAction(actionName: "Index", controllerName: "Ders");
@@ -32,11 +32,11 @@ namespace GaziProject.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Ders model)
+        public IActionResult Update(Lecture model)
         {
-            Ders bl = new();
+            Lecture bl = new();
             bl = _service.Update(model);
-            if (!String.IsNullOrEmpty(bl.DersKodu))
+            if (!String.IsNullOrEmpty(bl.LectureCode))
             {
                 return Ok();
             }
@@ -58,7 +58,7 @@ namespace GaziProject.Controllers
             return PartialView(_service.GetById(Id));
         }
         [HttpPost]
-        public IActionResult DetailUpdate(Ders model)
+        public IActionResult DetailUpdate(Lecture model)
         {
             _service.Update(model);
             return RedirectToAction("index");

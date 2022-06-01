@@ -6,9 +6,9 @@ namespace GaziProject.Controllers
 {
     public class OgrenciController : Controller
     {
-        private IOgrenciService _service;
-        private IBolumService _bolumservice;
-        public OgrenciController(IOgrenciService service, IBolumService  bolumService)
+        private IOgrenciManager _service;
+        private IBolumManager _bolumservice;
+        public OgrenciController(IOgrenciManager service, IBolumManager  bolumService)
         {
             _service = service;
             _bolumservice = bolumService;
@@ -22,11 +22,11 @@ namespace GaziProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Ogrenci model)
+        public IActionResult Index(Student model)
         {
-            Ogrenci bl = new();
+            Student bl = new();
             bl = _service.Create(model);
-            if (!String.IsNullOrEmpty(bl.Adi))
+            if (!String.IsNullOrEmpty(bl.StudentName))
             {
                 //return View("Index", Ok());
                 return RedirectToAction(actionName: "Index", controllerName: "Ogrenci");
@@ -36,11 +36,11 @@ namespace GaziProject.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Ogrenci model)
+        public IActionResult Update(Student model)
         {
-            Ogrenci bl = new();
+            Student bl = new();
             bl = _service.Update(model);
-            if (!String.IsNullOrEmpty(bl.Adi))
+            if (!String.IsNullOrEmpty(bl.StudentName))
             {
                 return Ok();
             }
@@ -64,7 +64,7 @@ namespace GaziProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult DetailUpdate(Ogrenci model)
+        public IActionResult DetailUpdate(Student model)
         {
             _service.Update(model);
             return RedirectToAction("index");

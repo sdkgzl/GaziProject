@@ -7,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IOgrenciDersService, OgrenciDersManager>();
-builder.Services.AddScoped<IOgrenciService, OgrenciManager>();
-builder.Services.AddScoped<IBolumService, BolumManager>();
-builder.Services.AddScoped<IDersService, DersManager>();
+builder.Services.AddScoped<IOgrenciDersManager, OgrenciDersManager>();
+builder.Services.AddScoped<IOgrenciManager, OgrenciManager>();
+builder.Services.AddScoped<IBolumManager, BolumManager>();
+builder.Services.AddScoped<IDersManager, DersManager>();
 builder.Services.AddScoped<GaziProjectContext>();
 builder.Services.AddControllersWithViews();
 

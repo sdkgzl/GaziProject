@@ -6,10 +6,10 @@ namespace GaziProject.Controllers
 {
     public class OgrenciDersController : Controller
     {
-        private IOgrenciDersService _ogrenciDerservice;
-        private IOgrenciService _ogrenciService;
-        private IDersService _dersService;
-        public OgrenciDersController(IOgrenciDersService ogrenciDerService, IOgrenciService ogrenciService, IDersService dersService)
+        private IOgrenciDersManager _ogrenciDerservice;
+        private IOgrenciManager _ogrenciService;
+        private IDersManager _dersService;
+        public OgrenciDersController(IOgrenciDersManager ogrenciDerService, IOgrenciManager ogrenciService, IDersManager dersService)
         {
             _ogrenciDerservice = ogrenciDerService;
             _ogrenciService = ogrenciService;
@@ -17,11 +17,11 @@ namespace GaziProject.Controllers
         }
         public IActionResult Index()
         {
-            List<Ogrenci> ogrenciler = new();
+            List<Student> ogrenciler = new();
             ogrenciler = _ogrenciService.GetOgrenciler();
             foreach (var item in ogrenciler)
             {
-                item.Adi = item.Adi + item.Soyadi;
+                item.StudentName = item.StudentName + item.StudentLastname;
             }
 
             ViewBag.Ogrenciler = ogrenciler;
@@ -31,17 +31,17 @@ namespace GaziProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(OgrenciDers model)
+        public IActionResult Index(StudentLecture model)
         {
-            OgrenciDers bl = new();
+            StudentLecture bl = new();
             bl = _ogrenciDerservice.Create(model);
             return RedirectToAction(actionName: "Index", controllerName: "OgrenciDers");            
         }
 
         [HttpPut]
-        public IActionResult Update(OgrenciDers model)
+        public IActionResult Update(StudentLecture model)
         {
-            OgrenciDers bl = new();
+            StudentLecture bl = new();
             bl = _ogrenciDerservice.Update(model);
             
             return RedirectToAction("index");
@@ -58,12 +58,12 @@ namespace GaziProject.Controllers
         [HttpPost]
         public IActionResult Detail(int id)
         {
-            List<Ogrenci> ogrenciler = new();
-            OgrenciDers ogrenciDers =new();
+            List<Student> ogrenciler = new();
+            StudentLecture ogrenciDers =new();
             ogrenciler = _ogrenciService.GetOgrenciler();
             foreach (var item in ogrenciler)
             {
-                item.Adi = item.Adi + item.Soyadi;
+                item.StudentName = item.StudentName + item.StudentLastname;
             }
 
             ViewBag.Ogrenciler = ogrenciler;
@@ -74,7 +74,7 @@ namespace GaziProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult DetailUpdate(OgrenciDers model)
+        public IActionResult DetailUpdate(StudentLecture model)
         {
             _ogrenciDerservice.Update(model);
             return RedirectToAction("index");

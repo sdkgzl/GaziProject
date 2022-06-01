@@ -1,4 +1,4 @@
-﻿@model GaziProject.Models.OgrenciDers
+﻿@model GaziProject.Models.StudentLecture
 @{
     ViewData["Title"] = "Home Page";
     int sayac = 0;
@@ -13,31 +13,31 @@
         <div class="col-6">
             <div class="col-6">
                 <div class="col-md-3">
-                    @Html.LabelFor(m=>m.OgrenciId,"Ogreci numarası")
-                    @Html.DropDownList("OgrenciId", new SelectList(ViewBag.Ogrenciler, "Id", "Adi"))
+                    @Html.LabelFor(m=>m.StudentId,"Ogreci numarası")
+                    @Html.DropDownList("StudentId", new SelectList(ViewBag.Ogrenciler, "Id", "StudentName"))
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(m=>m.DersId,"Ders Adı")
-                    @Html.DropDownList("DersId", new SelectList(ViewBag.Dersler, "Id", "DersAdi"))
+                    @Html.LabelFor(m=>m.LectureId,"Ders Adı")
+                    @Html.DropDownList("LectureId", new SelectList(ViewBag.Dersler, "Id", "LectureName"))
                 </div>
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(m=>m.KacKezAldi,"Kaç Kez Aldı")
-                @Html.TextBoxFor(m => m.KacKezAldi)
+                @Html.LabelFor(m=>m.HowManyTimes,"Kaç Kez Aldı")
+                @Html.TextBoxFor(m => m.HowManyTimes)
             </div>
         </div>
         <div class="col-6">
             <div class="col-md-3">
-                @Html.LabelFor(m=>m.VizeNotu,"Vize Notu")
-                @Html.TextBoxFor(m=>m.VizeNotu)
+                @Html.LabelFor(m=>m.MidTermNote,"Vize Notu")
+                @Html.TextBoxFor(m=>m.MidTermNote)
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(m=>m.FinalNotu,"Final Notu")
-                @Html.TextBoxFor(m=>m.FinalNotu)
+                @Html.LabelFor(m=>m.FinalNote,"Final Notu")
+                @Html.TextBoxFor(m=>m.FinalNote)
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(m=>m.Sonuc,"Sonuç")
-                @Html.TextBoxFor(m=>m.Sonuc)
+                @Html.LabelFor(m=>m.Result,"Sonuç")
+                @Html.TextBoxFor(m=>m.Result)
             </div>
         </div>
 
@@ -64,14 +64,14 @@
         {
             <tr>
                 <th scope="row">@sayac</th>
-                <td>@ogrenciDers.Ogrenci.OgrenciNo</td>
-                <td>@ogrenciDers.Ders.DersKodu</td>
-                <td>@ogrenciDers.KacKezAldi</td>
-                <td>@ogrenciDers.Ogrenci.Adi</td>
-                <td>@ogrenciDers.Ogrenci.Soyadi</td>
-                <td>@ogrenciDers.VizeNotu</td>
-                <td>@ogrenciDers.FinalNotu</td>
-                <td>@ogrenciDers.Sonuc</td>
+                <td>@ogrenciDers.Student.StudentNumber</td>
+                <td>@ogrenciDers.Lecture.LectureCode</td>
+                <td>@ogrenciDers.HowManyTimes</td>
+                <td>@ogrenciDers.Student.StudentName</td>
+                <td>@ogrenciDers.Student.StudentLastname</td>
+                <td>@ogrenciDers.MidTermNote</td>
+                <td>@ogrenciDers.FinalNote</td>
+                <td>@ogrenciDers.Result</td>
                 <td>
                     <div style="display:flex;">
                         <button class="view" data-target="/ogrenciders/detail/@ogrenciDers.Id">Düzenle</button>

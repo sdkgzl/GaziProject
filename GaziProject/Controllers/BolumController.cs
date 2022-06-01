@@ -6,8 +6,8 @@ namespace GaziProject.Controllers
 {
     public class BolumController : Controller
     {
-        private IBolumService _service;
-        public BolumController(IBolumService service)
+        private IBolumManager _service;
+        public BolumController(IBolumManager service)
         {
             _service = service;
         }
@@ -17,11 +17,11 @@ namespace GaziProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(Bolum model)
+        public IActionResult Index(Department model)
         {
-            Bolum bl = new();
+            Department bl = new();
             bl = _service.Create(model);
-            if (!String.IsNullOrEmpty(bl.BolumKodu))
+            if (!String.IsNullOrEmpty(bl.DepartmentCode))
             {
                 //return View("Index", Ok());
                 return RedirectToAction(actionName: "Index", controllerName: "Bolum");
@@ -31,11 +31,11 @@ namespace GaziProject.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Bolum model)
+        public IActionResult Update(Department model)
         {
-            Bolum bl = new();
+            Department bl = new();
             bl = _service.Update(model);
-            if (!String.IsNullOrEmpty(bl.BolumKodu))
+            if (!String.IsNullOrEmpty(bl.DepartmentCode))
             {
                 return Ok();
             }
@@ -57,7 +57,7 @@ namespace GaziProject.Controllers
             return PartialView(_service.GetById(bolumKodu));
         }
         [HttpPost]
-        public IActionResult DetailUpdate(Bolum model)
+        public IActionResult DetailUpdate(Department model)
         {
             _service.Update(model);            
             return RedirectToAction("index");            

@@ -14,9 +14,9 @@ namespace GaziProject.GaziProjectDbContext
         {
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("GaziProjectDb"));
         }
-       public DbSet<Bolum> Bolums { get; set; }
-        public DbSet<Ogrenci> Ogrencis { get; set; }
-        public DbSet<OgrenciDers> OgrenciDerss { get; set; }
-        public DbSet<Ders> Derss { get; set; }
+       public DbSet<Department> Departments { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<StudentLecture> StudentLectures { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model GaziProject.Models.Ogrenci
+﻿@model GaziProject.Models.Student
 @{
     ViewData["Title"] = "Home Page";
     int sayac = 0;
@@ -9,12 +9,17 @@
 
 @using (Html.BeginForm("Index", "Ogrenci", FormMethod.Post))
 {
-    @Html.TextBoxFor(m => m.OgrenciNo)
-    @Html.TextBoxFor(m => m.Adi)
-    @Html.TextBoxFor(m => m.Soyadi)
-    @Html.EditorFor(m => m.KayitTarihi)
-    @Html.TextBoxFor(m=>m.Ortalama)
-    @Html.DropDownList("BolumId", new SelectList(ViewBag.Bolumler, "Id", "BolumAdi"))
+    @Html.LabelFor(m=>m.StudentNumber,"Öğrenci Numarası")
+    @Html.TextBoxFor(m => m.StudentNumber)
+    @Html.LabelFor(m=>m.StudentNumber,"Öğrenci İsmi")
+    @Html.TextBoxFor(m => m.StudentName)
+    @Html.LabelFor(m=>m.StudentNumber,"Öğrenci SoyAdı")
+    @Html.TextBoxFor(m => m.StudentLastname)
+    @Html.LabelFor(m=>m.AddedTime,"Ekleme Tarihi")
+    @Html.EditorFor(m => m.AddedTime)
+    @Html.LabelFor(m=>m.Average,"Ortalama")
+    @Html.TextBoxFor(m=>m.Average)
+    @Html.DropDownList("DepartmentId", new SelectList(ViewBag.Bolumler, "Id", "DepartmentName"))
 
     <input type="submit" value="Submit Form" />
 }
@@ -34,10 +39,10 @@
         {
             <tr>
                 <th scope="row">@sayac</th>
-                <td>@ogrenci.OgrenciNo</td>
-                <td>@ogrenci.Adi</td>
-                <td>@ogrenci.Soyadi</td>
-                <td>@ogrenci.Bolum.BolumAdi</td>
+                <td>@ogrenci.StudentNumber</td>
+                <td>@ogrenci.StudentName</td>
+                <td>@ogrenci.StudentLastname</td>
+                <td>@ogrenci.Department.DepartmentName</td>
                 <td>
                     <div style="display:flex;">
                         <button class="view" data-target="/ogrenci/detail/@ogrenci.Id">Düzenle</button>

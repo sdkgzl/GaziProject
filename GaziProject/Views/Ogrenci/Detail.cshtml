@@ -1,16 +1,20 @@
-﻿@model GaziProject.Models.Ogrenci
+﻿@model GaziProject.Models.Student
 
 
 @using (Html.BeginForm("DetailUpdate", "Ogrenci", FormMethod.Post))
-{
+{    
     @Html.TextBoxFor(m => m.Id,new {@hidden="true"})
-    @Html.TextBoxFor(m => m.OgrenciNo)
-    @Html.TextBoxFor(m => m.Adi)
-    @Html.TextBoxFor(m => m.Soyadi)
-    @Html.EditorFor(m => m.KayitTarihi)
-    @Html.TextBoxFor(m=>m.Ortalama)
-    @Html.DropDownList("BolumId", new SelectList(ViewBag.Bolumler, "Id", "BolumAdi"))
-
+    @Html.LabelFor(m=>m.StudentNumber,"Öğrenci Numarası")
+    @Html.TextBoxFor(m => m.StudentNumber)
+    @Html.LabelFor(m=>m.StudentName,"Öğrenci İsmi")
+    @Html.TextBoxFor(m => m.StudentName)
+    @Html.LabelFor(m=>m.StudentLastname,"Öğrenci Soyadı")
+    @Html.TextBoxFor(m => m.StudentLastname)
+    @Html.LabelFor(m=>m.AddedTime,"Ekleme Tarihi")
+    @Html.EditorFor(m => m.AddedTime)
+    @Html.LabelFor(m=>m.Average,"Ortalama")
+    @Html.TextBoxFor(m=>m.Average)
+    @Html.DropDownList("DepartmentId", new SelectList(ViewBag.Bolumler, "Id", "DepartmentName"))
     <input type="submit" value="Submit Form" />
 }
 

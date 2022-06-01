@@ -1,4 +1,4 @@
-﻿@model GaziProject.Models.Ders
+﻿@model GaziProject.Models.Lecture
 @{
     ViewData["Title"] = "Home Page";
     int sayac = 0;
@@ -9,16 +9,19 @@
 
 @using (Html.BeginForm("Index", "Ders", FormMethod.Post))
 {
-    @Html.TextBoxFor(m => m.DersKodu)
-    @Html.TextBoxFor(m => m.DersAdi)
-    @Html.TextBoxFor(m => m.Kredisi)
+    @Html.LabelFor(m=>m.LectureCode,"Ders Kodu")
+    @Html.TextBoxFor(m => m.LectureCode)
+    @Html.LabelFor(m=>m.LectureName,"Ders Adı")
+    @Html.TextBoxFor(m => m.LectureName)
+    @Html.LabelFor(m=>m.Credit,"Ders Kredisi")
+    @Html.TextBoxFor(m => m.Credit)
     <input type="submit" value="Submit Form" />
 }
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Sıra</th>
             <th scope="col">Ders Kodu</th>
             <th scope="col">Ders Adı</th>
             <th scope="col">Kredisi</th>
@@ -29,9 +32,9 @@
         {
             <tr>
                 <th scope="row">@sayac</th>
-                <td>@ders.DersKodu</td>
-                <td>@ders.DersAdi</td>
-                <td>@ders.Kredisi</td>
+                <td>@ders.LectureCode</td>
+                <td>@ders.LectureName</td>
+                <td>@ders.Credit</td>
                 <td><div style="display:flex;">
                 <button class= "view" data-target="/ders/detail/@ders.Id">Düzenle</button>
                 <button class="deleteView" data-target="/ders/delete/@ders.Id">Sil</button>                
@@ -55,10 +58,6 @@
       </div>
       <div class="modal-body">
         ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-        <button type="button" onclick="updateModel()" class="btn btn-primary">Güncelle</button>
       </div>
     </div>
   </div>

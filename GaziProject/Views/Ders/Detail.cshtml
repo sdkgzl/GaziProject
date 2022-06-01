@@ -1,4 +1,4 @@
-﻿@model GaziProject.Models.Ders
+﻿@model GaziProject.Models.Lecture
 
 
 <div class="row">
@@ -7,29 +7,25 @@
             @Html.TextBoxFor(m => m.Id, new {@hidden="true"})
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DersKodu" class="control-label">Bölüm Kodu</label>
-                <input asp-for="DersKodu" class="form-control" />
-                <span asp-validation-for="DersKodu" class="text-danger"></span>
+                <label asp-for="LectureCode" class="control-label">Bölüm Kodu</label>
+                <input asp-for="LectureCode" class="form-control" />
+                <span asp-validation-for="LectureCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DersAdi" class="control-label"> Bölüm Adi</label>
-                <input asp-for="DersAdi" class="form-control" />
-                <span asp-validation-for="DersAdi" class="text-danger"></span>
+                <label asp-for="LectureName" class="control-label"> Bölüm Adi</label>
+                <input asp-for="LectureName" class="form-control" />
+                <span asp-validation-for="LectureName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kredisi" class="control-label">Kredisi</label>
-                <input asp-for="Kredisi" class="form-control" />
-                <span asp-validation-for="Kredisi" class="text-danger"></span>
+                <label asp-for="Credit" class="control-label">Kredisi</label>
+                <input asp-for="Credit" class="form-control" />
+                <span asp-validation-for="Credit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,15 +1,22 @@
-﻿@model GaziProject.Models.OgrenciDers
+﻿@model GaziProject.Models.StudentLecture
 
 
 @using (Html.BeginForm("DetailUpdate", "OgrenciDers", FormMethod.Post))
 {
+
     @Html.TextBoxFor(m => m.Id,new {@hidden="true"})
-    @Html.DropDownList("OgrenciId", new SelectList(ViewBag.Ogrenciler, "Id", "Adi"))
-    @Html.DropDownList("DersId", new SelectList(ViewBag.Dersler, "Id", "DersAdi")) 
-    @Html.TextBoxFor(m => m.KacKezAldi)    
-    @Html.TextBoxFor(m=>m.VizeNotu)
-    @Html.TextBoxFor(m=>m.FinalNotu)
-    @Html.TextBoxFor(m=>m.Sonuc)    
+    @Html.LabelFor(m=>m.StudentId,"Öğrenci")
+    @Html.DropDownList("StudentId", new SelectList(ViewBag.Ogrenciler, "Id", "StudentName"))
+    @Html.LabelFor(m=>m.LectureId,"Ders")
+    @Html.DropDownList("LectureId", new SelectList(ViewBag.Dersler, "Id", "LectureName")) 
+    @Html.LabelFor(m=>m.HowManyTimes,"Kaç Kere Aldı")
+    @Html.TextBoxFor(m => m.HowManyTimes)    
+    @Html.LabelFor(m=>m.MidTermNote,"Vize Notu")
+    @Html.TextBoxFor(m=>m.MidTermNote)
+    @Html.LabelFor(m=>m.FinalNote,"Final Notu")
+    @Html.TextBoxFor(m=>m.FinalNote)
+    @Html.LabelFor(m=>m.Result,"Sonuç")
+    @Html.TextBoxFor(m=>m.Result)    
 
     <input type="submit" value="Submit Form" />
 }
