@@ -1,0 +1,37 @@
+﻿@model GaziProject.Models.Bolum
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DetailUpdate" method="post">
+            @Html.TextBoxFor(m => m.Id, new {@hidden="true"})
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BolumKodu" class="control-label">Bölüm Kodu</label>
+                <input asp-for="BolumKodu" class="form-control" />
+                <span asp-validation-for="BolumKodu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BolumAdi" class="control-label"> Bölüm Adi</label>
+                <input asp-for="BolumAdi" class="form-control" />
+                <span asp-validation-for="BolumAdi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label">Telefon</label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

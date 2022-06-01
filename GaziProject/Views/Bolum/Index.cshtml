@@ -1,0 +1,100 @@
+﻿@model GaziProject.Models.Bolum
+@{
+    ViewData["Title"] = "Home Page";
+    int sayac = 0;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+@using (Html.BeginForm("Index", "Bolum", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.BolumKodu)
+    @Html.TextBoxFor(m => m.BolumAdi)
+    @Html.TextBoxFor(m => m.Telefon)
+    <input type="submit" value="Submit Form" />
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Bölüm Kodu</th>
+            <th scope="col">Bölüm Adı</th>
+            <th scope="col">Telefon</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bolum in ViewBag.bolumler)
+        {
+            <tr>
+                <th scope="row">@sayac</th>
+                <td>@bolum.BolumKodu</td>
+                <td>@bolum.BolumAdi</td>
+                <td>@bolum.Telefon</td>
+                <td><div style="display:flex;">
+                <button class= "view" data-target="/bolum/detail/@bolum.Id">Düzenle</button>
+                <button class="deleteView" data-target="/bolum/delete/@bolum.Id">Sil</button>                
+            </div></td>
+                
+            </tr>
+            sayac++;
+            
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detaylar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+        <button type="button" onclick="updateModel()" class="btn btn-primary">Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+ $(function () {        
+        $("body").on("click", ".view", function () {
+            var url = $(this).data("target");
+            console.log(url);
+            var bolumKodu = url.split('/').pop();
+            $.post(url,{ bolumKodu: bolumKodu}, function (data){
+            })                
+            .done(function (data) {            
+                $("#modelView .modal-body").html(data);
+                $("#modelView").modal("show");
+            })                            
+
+        });
+    })
+
+     $(function () {        
+        $("body").on("click", ".deleteView", function () {
+            var url = $(this).data("target");
+            
+            var bolumKodu = url.split('/').pop();
+            $.post(url,{ bolumKodu: bolumKodu}, function (data){
+                location.reload();
+            })                                  
+        });
+    })
+
+    $(function () {        
+        $("body").on("click", ".close", function () {
+            $("#modelView").modal("hide");                      
+        });
+    })
+</script>

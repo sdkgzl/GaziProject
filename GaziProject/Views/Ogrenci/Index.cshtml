@@ -1,0 +1,102 @@
+﻿@model GaziProject.Models.Ogrenci
+@{
+    ViewData["Title"] = "Home Page";
+    int sayac = 0;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+@using (Html.BeginForm("Index", "Ogrenci", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.OgrenciNo)
+    @Html.TextBoxFor(m => m.Adi)
+    @Html.TextBoxFor(m => m.Soyadi)
+    @Html.EditorFor(m => m.KayitTarihi)
+    @Html.TextBoxFor(m=>m.Ortalama)
+    @Html.DropDownList("BolumId", new SelectList(ViewBag.Bolumler, "Id", "BolumAdi"))
+
+    <input type="submit" value="Submit Form" />
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Öğrenci Numarası</th>
+            <th scope="col">Adı</th>
+            <th scope="col">Soyadı</th>
+            <th scope="col">Bölüm Adı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ogrenci in ViewBag.Ogrenciler)
+        {
+            <tr>
+                <th scope="row">@sayac</th>
+                <td>@ogrenci.OgrenciNo</td>
+                <td>@ogrenci.Adi</td>
+                <td>@ogrenci.Soyadi</td>
+                <td>@ogrenci.Bolum.BolumAdi</td>
+                <td>
+                    <div style="display:flex;">
+                        <button class="view" data-target="/ogrenci/detail/@ogrenci.Id">Düzenle</button>
+                        <button class="deleteView" data-target="/ogrenci/delete/@ogrenci.Id">Sil</button>
+                    </div>
+                </td>
+            </tr>
+            sayac++;
+
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detaylar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+           $("body").on("click", ".view", function () {
+               var url = $(this).data("target");
+               var ogrenciNo = url.split('/').pop();
+               console.log(ogrenciNo);
+               console.log(typeof ogrenciNo);
+               $.post(url,{ ogrenciNo: ogrenciNo }, function (data){
+               })
+               .done(function (data) {
+                   $("#modelView .modal-body").html(data);
+                   $("#modelView").modal("show");
+               })
+
+           });
+       })
+
+        $(function () {
+           $("body").on("click", ".deleteView", function () {
+               var url = $(this).data("target");
+               var ogrenciNo  = url.split('/').pop();
+               $.post(url,{ ogrenciNo: ogrenciNo }, function (data){
+                   location.reload();
+               })
+           });
+       })
+       $(function () {        
+        $("body").on("click", ".close", function () {
+            $("#modelView").modal("hide");                      
+        });
+    })
+</script>

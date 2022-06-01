@@ -1,0 +1,20 @@
+﻿@model GaziProject.Models.OgrenciDers
+
+
+@using (Html.BeginForm("DetailUpdate", "OgrenciDers", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Id,new {@hidden="true"})
+    @Html.DropDownList("OgrenciId", new SelectList(ViewBag.Ogrenciler, "Id", "Adi"))
+    @Html.DropDownList("DersId", new SelectList(ViewBag.Dersler, "Id", "DersAdi")) 
+    @Html.TextBoxFor(m => m.KacKezAldi)    
+    @Html.TextBoxFor(m=>m.VizeNotu)
+    @Html.TextBoxFor(m=>m.FinalNotu)
+    @Html.TextBoxFor(m=>m.Sonuc)    
+
+    <input type="submit" value="Submit Form" />
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

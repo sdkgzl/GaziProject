@@ -1,0 +1,97 @@
+﻿@model GaziProject.Models.Ders
+@{
+    ViewData["Title"] = "Home Page";
+    int sayac = 0;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+@using (Html.BeginForm("Index", "Ders", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.DersKodu)
+    @Html.TextBoxFor(m => m.DersAdi)
+    @Html.TextBoxFor(m => m.Kredisi)
+    <input type="submit" value="Submit Form" />
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ders Kodu</th>
+            <th scope="col">Ders Adı</th>
+            <th scope="col">Kredisi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ders in ViewBag.Dersler)
+        {
+            <tr>
+                <th scope="row">@sayac</th>
+                <td>@ders.DersKodu</td>
+                <td>@ders.DersAdi</td>
+                <td>@ders.Kredisi</td>
+                <td><div style="display:flex;">
+                <button class= "view" data-target="/ders/detail/@ders.Id">Düzenle</button>
+                <button class="deleteView" data-target="/ders/delete/@ders.Id">Sil</button>                
+            </div></td>
+                
+            </tr>
+            sayac++;
+            
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detaylar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+        <button type="button" onclick="updateModel()" class="btn btn-primary">Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+ $(function () {        
+        $("body").on("click", ".view", function () {
+            var url = $(this).data("target");            
+            var dersKodu = url.split('/').pop();
+            $.post(url,{ dersKodu: dersKodu }, function (data){
+            })                
+            .done(function (data) {            
+                $("#modelView .modal-body").html(data);
+                $("#modelView").modal("show");
+            })                            
+
+        });
+    })
+
+     $(function () {        
+        $("body").on("click", ".deleteView", function () {
+            var url = $(this).data("target");
+            var dersKodu  = url.split('/').pop();
+            $.post(url,{ dersKodu: dersKodu }, function (data){
+                location.reload();
+            })                                  
+        });
+    })
+    $(function () {        
+        $("body").on("click", ".close", function () {
+            $("#modelView").modal("hide");                      
+        });
+    })
+</script>

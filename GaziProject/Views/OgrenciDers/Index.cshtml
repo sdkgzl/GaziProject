@@ -1,0 +1,134 @@
+﻿@model GaziProject.Models.OgrenciDers
+@{
+    ViewData["Title"] = "Home Page";
+    int sayac = 0;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+@using (Html.BeginForm("Index", "OgrenciDers", FormMethod.Post))
+{
+    <div class="col-12" style="display: flex;">
+        <div class="col-6">
+            <div class="col-6">
+                <div class="col-md-3">
+                    @Html.LabelFor(m=>m.OgrenciId,"Ogreci numarası")
+                    @Html.DropDownList("OgrenciId", new SelectList(ViewBag.Ogrenciler, "Id", "Adi"))
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(m=>m.DersId,"Ders Adı")
+                    @Html.DropDownList("DersId", new SelectList(ViewBag.Dersler, "Id", "DersAdi"))
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m=>m.KacKezAldi,"Kaç Kez Aldı")
+                @Html.TextBoxFor(m => m.KacKezAldi)
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-md-3">
+                @Html.LabelFor(m=>m.VizeNotu,"Vize Notu")
+                @Html.TextBoxFor(m=>m.VizeNotu)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m=>m.FinalNotu,"Final Notu")
+                @Html.TextBoxFor(m=>m.FinalNotu)
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m=>m.Sonuc,"Sonuç")
+                @Html.TextBoxFor(m=>m.Sonuc)
+            </div>
+        </div>
+
+    </div>
+    <input type="submit" value="Submit Form" />
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Öğrenci Numarası</th>
+            <th scope="col">Ders Kodu</th>
+            <th scope="col">Kaç Kez Aldı</th>
+            <th scope="col">Öğrenci Adı</th>
+            <th scope="col">Öğrenci Soyadı</th>
+            <th scope="col">Vize Notu</th>
+            <th scope="col">Final Notu</th>
+            <th scope="col">Sonuç</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ogrenciDers in ViewBag.OgrenciDersler)
+        {
+            <tr>
+                <th scope="row">@sayac</th>
+                <td>@ogrenciDers.Ogrenci.OgrenciNo</td>
+                <td>@ogrenciDers.Ders.DersKodu</td>
+                <td>@ogrenciDers.KacKezAldi</td>
+                <td>@ogrenciDers.Ogrenci.Adi</td>
+                <td>@ogrenciDers.Ogrenci.Soyadi</td>
+                <td>@ogrenciDers.VizeNotu</td>
+                <td>@ogrenciDers.FinalNotu</td>
+                <td>@ogrenciDers.Sonuc</td>
+                <td>
+                    <div style="display:flex;">
+                        <button class="view" data-target="/ogrenciders/detail/@ogrenciDers.Id">Düzenle</button>
+                        <button class="deleteView" data-target="/ogrenciders/delete/@ogrenciDers.Id">Sil</button>
+                    </div>
+                </td>
+            </tr>
+            sayac++;
+
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detaylar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+           $("body").on("click", ".view", function () {
+               var url = $(this).data("target");
+               var id = url.split('/').pop();
+               $.post(url,{ id: id }, function (data){
+               })
+               .done(function (data) {
+                   $("#modelView .modal-body").html(data);
+                   $("#modelView").modal("show");
+               })
+
+           });
+       })
+
+        $(function () {
+           $("body").on("click", ".deleteView", function () {
+               var url = $(this).data("target");
+               var id  = url.split('/').pop();
+               $.post(url,{ id: id}, function (data){
+                   location.reload();
+               })
+           });
+       })
+       $(function () {
+        $("body").on("click", ".close", function () {
+            $("#modelView").modal("hide");
+        });
+    })
+</script>
